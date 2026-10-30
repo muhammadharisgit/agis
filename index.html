@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AEGIS | Security Agency</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #07130f;
+    color: white;
+}
+
+header {
+    background: #0c2119;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    color: #d6b56d;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 22px;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #d6b56d;
+}
+
+.hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 60px 8%;
+    background: linear-gradient(90deg, #07130f 35%, #07130f99),
+    url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1600&q=85") center/cover;
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 6vw, 70px);
+    margin: 20px 0;
+}
+
+.hero h1 span {
+    color: #d6b56d;
+}
+
+.hero p {
+    color: #c5d0c9;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+.btn {
+    display: inline-block;
+    background: #d6b56d;
+    color: #07130f;
+    padding: 14px 25px;
+    text-decoration: none;
+    margin-top: 25px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: .3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: white;
+    transform: translateY(-4px);
+}
+
+section {
+    padding: 85px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.section-title h2 {
+    font-size: 38px;
+    color: #d6b56d;
+    margin-bottom: 12px;
+}
+
+.section-title p {
+    color: #aab8af;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: #10271d;
+    padding: 30px;
+    border: 1px solid #294436;
+    border-radius: 8px;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: #d6b56d;
+}
+
+.card .icon {
+    font-size: 38px;
+}
+
+.card h3 {
+    color: #d6b56d;
+    margin: 18px 0 12px;
+}
+
+.card p {
+    color: #b8c5bc;
+    line-height: 1.7;
+}
+
+.about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 45px;
+    align-items: center;
+}
+
+.about img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.about h2 {
+    color: #d6b56d;
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+.about p {
+    color: #b8c5bc;
+    line-height: 1.9;
+}
+
+.contact {
+    background: #10271d;
+    text-align: center;
+}
+
+form {
+    max-width: 550px;
+    margin: auto;
+    display: grid;
+    gap: 15px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 15px;
+    background: #07130f;
+    color: white;
+    border: 1px solid #405c4b;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: #d6b56d;
+}
+
+textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.auth-section {
+    background: #10271d;
+    text-align: center;
+}
+
+.auth-box {
+    max-width: 430px;
+    margin: auto;
+    padding: 30px;
+    background: #07130f;
+    border: 1px solid #405c4b;
+    border-radius: 10px;
+}
+
+.auth-box h2 {
+    color: #d6b56d;
+    margin-bottom: 20px;
+}
+
+.auth-box input {
+    margin-bottom: 15px;
+}
+
+.auth-box p {
+    color: #b8c5bc;
+    margin-top: 15px;
+}
+
+.auth-box a {
+    color: #d6b56d;
+    text-decoration: none;
+}
+
+footer {
+    background: #040b08;
+    text-align: center;
+    padding: 30px;
+    color: #aab8af;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: .8s ease;
+}
+
+.reveal.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu-btn {
+    display: none;
+    color: white;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+@media(max-width: 750px) {
+    .menu-btn {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #0c2119;
+        padding: 20px;
+    }
+
+    nav.active {
+        display: grid;
+        gap: 20px;
+    }
+
+    nav a {
+        margin: 0;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        min-height: 75vh;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">AEGIS<span> SECURITY</span></div>
+
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+    <nav id="nav">
+        <a href="#home" onclick="closeMenu()">Home</a>
+        <a href="#about" onclick="closeMenu()">About</a>
+        <a href="#services" onclick="closeMenu()">Services</a>
+        <a href="#contact" onclick="closeMenu()">Contact</a>
+        <a href="#login" onclick="closeMenu()">Login</a>
+    </nav>
+</header>
+
+<!-- HOME -->
+<section class="hero" id="home">
+    <div class="hero-content reveal">
+        <p>PROFESSIONAL SECURITY SOLUTIONS</p>
+        <h1>Your Safety.<br><span>Our Priority.</span></h1>
+        <p>
+            Protecting people, businesses and properties with
+            professional security solutions, trained teams and
+            modern protection strategies.
+        </p>
+        <a href="#services" class="btn">Explore Services →</a>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="about reveal">
+        <div>
+            <h2>About AEGIS</h2>
+            <p>
+                AEGIS Protective Group is dedicated to providing
+                reliable and professional security services.
+                Our mission is to help create safer environments
+                for businesses, organizations and communities.
+            </p>
+            <a href="#contact" class="btn">Contact Our Team</a>
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=85" alt="Professional team">
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+    <div class="section-title reveal">
+        <h2>Our Services</h2>
+        <p>Professional protection for every environment</p>
+    </div>
+
+    <div class="cards">
+        <div class="card reveal">
+            <div class="icon">🛡️</div>
+            <h3>Personal Security</h3>
+            <p>Professional protection planning for individuals and important guests.</p>
+        </div>
+
+        <div class="card reveal">
+            <div class="icon">🏢</div>
+            <h3>Corporate Security</h3>
+            <p>Security support for offices, commercial buildings and workplaces.</p>
+        </div>
+
+        <div class="card reveal">
+            <div class="icon">🚨</div>
+            <h3>Event Security</h3>
+            <p>Organized security planning for events, gatherings and special occasions.</p>
+        </div>
+
+        <div class="card reveal">
+            <div class="icon">🏠</div>
+            <h3>Property Protection</h3>
+            <p>Protection solutions for residential and commercial properties.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+    <div class="section-title reveal">
+        <h2>Contact Us</h2>
+        <p>Let's discuss your security requirements</p>
+    </div>
+
+    <form onsubmit="sendMessage(event)">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <input type="text" placeholder="Subject" required>
+        <textarea placeholder="Your Message" required></textarea>
+        <button class="btn" type="submit">Send Message</button>
+    </form>
+</section>
+
+<!-- LOGIN -->
+<section class="auth-section" id="login">
+    <div class="auth-box reveal">
+        <h2>Member Login</h2>
+
+        <form onsubmit="loginUser(event)">
+            <input type="email" placeholder="Email Address" required>
+            <input type="password" placeholder="Password" required>
+            <button class="btn" type="submit">Login</button>
+        </form>
+
+        <p>New member? <a href="#signup">Create Account</a></p>
+        <p><a href="#forgot">Forgot Password?</a></p>
+    </div>
+</section>
+
+<!-- SIGNUP -->
+<section class="auth-section" id="signup">
+    <div class="auth-box reveal">
+        <h2>Create Account</h2>
+
+        <form onsubmit="signupUser(event)">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <input type="password" placeholder="Create Password" required>
+            <button class="btn" type="submit">Sign Up</button>
+        </form>
+
+        <p>Already registered? <a href="#login">Login</a></p>
+    </div>
+</section>
+
+<!-- FORGOT PASSWORD -->
+<section class="auth-section" id="forgot">
+    <div class="auth-box reveal">
+        <h2>Forgot Password?</h2>
+        <p>Enter your email to continue.</p>
+
+        <form onsubmit="forgotPassword(event)">
+            <input type="email" placeholder="Your Email" required>
+            <button class="btn" type="submit">Continue</button>
+        </form>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 AEGIS Protective Group. All Rights Reserved.</p>
+    <p>Professional Security | Trusted Protection</p>
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById("nav").classList.toggle("active");
+}
+
+function closeMenu() {
+    document.getElementById("nav").classList.remove("active");
+}
+
+// Scroll animation
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+    });
+}, { threshold: 0.15 });
+
+document.querySelectorAll(".reveal").forEach(element => {
+    observer.observe(element);
+});
+
+// Demo forms
+function sendMessage(event) {
+    event.preventDefault();
+    alert("Thank you! Your demo message has been received.");
+    event.target.reset();
+}
+
+function loginUser(event) {
+    event.preventDefault();
+    alert("This is a demo login. Backend authentication is not connected.");
+}
+
+function signupUser(event) {
+    event.preventDefault();
+    alert("This is a demo signup. Backend registration is not connected.");
+}
+
+function forgotPassword(event) {
+    event.preventDefault();
+    alert("Password recovery demo. Email service is not connected.");
+    event.target.reset();
+}
+</script>
+
+</body>
+</html>
